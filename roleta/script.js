@@ -25,26 +25,23 @@ function loadOptions() {
   if (theme === "dark") {
     document.body.classList.add("dark");
     darkBtn.innerText = "☀️ Light Mode";
+  } else {
+    darkBtn.innerText = "🌙 Dark Mode";
   }
 
   updateOptions();
 }
 
 // ============================
-// OPTIONS
+// ATUALIZAÇÃO DAS OPÇÕES
 // ============================
-function saveOptions() {
-  localStorage.setItem("roletaOptions", textarea.value);
-  updateOptions();
-}
-
 function updateOptions() {
   options = textarea.value.split("\n").filter(o => o.trim());
   draw();
 }
 
 // ============================
-// DRAW
+// DESENHO DA ROLETA
 // ============================
 function draw() {
   if (!options.length) return;
@@ -117,14 +114,16 @@ function showResult() {
 }
 
 // ============================
-// REMOVER
+// REMOVER OPÇÃO
 // ============================
 function removeSelected() {
   if (lastResultIndex === null) return;
 
   options.splice(lastResultIndex, 1);
   textarea.value = options.join("\n");
-  saveOptions();
+
+  localStorage.setItem("roletaOptions", textarea.value);
+  updateOptions();
 
   resultDiv.innerText = "Resultado removido";
   lastResultIndex = null;
@@ -149,10 +148,17 @@ function toggleTheme() {
 // EVENTOS
 // ============================
 document.getElementById("spinCenter").onclick = spin;
-document.getElementById("save").onclick = saveOptions;
 document.getElementById("remove").onclick = removeSelected;
 darkBtn.onclick = toggleTheme;
 
+// 🔥 ATUALIZA AUTOMATICAMENTE AO DIGITAR
+textarea.addEventListener("input", () => {
+  localStorage.setItem("roletaOptions", textarea.value);
+  updateOptions();
+});
+
+// ============================
 // START
+// ============================
 loadOptions();
 
