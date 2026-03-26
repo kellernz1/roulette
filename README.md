@@ -70,7 +70,6 @@ No installation or dependencies required.
 ## 📌 Future Improvements
 
 * 🔊 Sound effects (tick / spin / result)
-* 🎯 Snap-to-center precision (casino-style)
 * 📱 Mobile optimization (touch + vibration)
 * 🌐 Shareable wheel links
 * 🎨 Custom color themes
